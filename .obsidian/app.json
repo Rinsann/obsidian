@@ -1,4 +1,10 @@
 {
   "attachmentFolderPath": "./images",
-  "alwaysUpdateLinks": true
+  "alwaysUpdateLinks": true,
+  "spellcheck": true,
+  "spellcheckLanguages": [
+    "zh-CN",
+    "en-US"
+  ],
+  "readableLineLength": false
 }
