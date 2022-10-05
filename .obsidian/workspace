@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "集合.md",
+            "file": "Python-数据类型转换.md",
             "mode": "source",
             "source": false
           }
@@ -78,7 +78,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "集合.md",
+                "file": "Python-数据类型转换.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -95,7 +95,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "集合.md",
+                "file": "Python-数据类型转换.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -118,7 +118,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "集合.md"
+                "file": "Python-数据类型转换.md"
               }
             }
           }
@@ -131,8 +131,9 @@
   },
   "active": "d1ac44dadfb27b23",
   "lastOpenFiles": [
+    "Python-集合.md",
+    "Python-数据类型转换.md",
     "2022-10-02.md",
-    "集合.md",
     "images/Pasted image 20221002104326.png"
   ]
 }
