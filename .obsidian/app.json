@@ -6,5 +6,6 @@
     "zh-CN",
     "en-US"
   ],
-  "readableLineLength": false
+  "readableLineLength": false,
+  "promptDelete": false
 }
