@@ -61,7 +61,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "5407907309813bac",
@@ -128,7 +129,7 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "d1ac44dadfb27b23",
+  "active": "fb4859a0de53ae99",
   "lastOpenFiles": [
     "MD/Typora+PicGo+阿里云OSS服务.md",
     "Python-数据类型转换.md",
