@@ -83,3 +83,72 @@ systemctl set-default graphical.target
 - -a : 显示当前目录的所有文件和目录，包括隐藏的
 - -l：以列表的方式显示信息
 
+**`cd` 指令**
+基本语法：`cd [参数]` (功能描述：切换到指定目录)
+`cd ~` 或者 `cd :` 回到自己的家目录，比如 `root`，`cd ~` 到 `/root`
+`cd ..` 回到上一层目录
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221108095615.png)
+
+**`mkdir` 指令**
+`mkdir` 指令用于创建目录
+基本语法：`mkdir` [选项] 要创建的目录
+常用选项
+- -p：创建多级目录
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221108095900.png)
+
+**`rmdir` 指令**
+`rmdir` 指令删除空目录，`remdir` 删除的是空目录，如果目录下有内容时无法删除。
+基本语法：`rmdir` [选项] 要删除的空目录
+>如果需要删除非空目录，需要使用 `rm -rf 要删除的目录`
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221108100303.png)
+
+**`touch` 指令**
+
+`touch` 指令用于创建空文件
+- 基本语法：`touch` 文件名称
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221108100517.png)
+
+**`cp`指令**
+`cp` 指令是拷贝文件到指定目录
+- 基本语法：`cp [选项] source dest`
+- 常用选项：`-r` 用于递归复制整个文件夹
+- 细节：强制覆盖并且不提示的方法：`\cp -r /home/bbb /opt/`
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221108100906.png)
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221108101133.png)
+
+**`rm` 指令**
+`rm` 指令用于移除文件或者目录
+- 基本语法： `rm` [选项] 要删除的文件或目录
+- 常用选项：
+	- `-r`：递归删除整个文件夹
+	- `-f`：强制删除不提示
+- 细节：强制删除不提示的方法：带上 `-f` 参数即可
+
+**`mv` 指令**
+`mv` 用于移动文件和目录或者重命名
+- 基本语法：
+	- `mv oldNameFile newNameFile`  (重命名操作)
+	- `mv /temp/movefile /targetFolder` (移动文件)
+	- `mv pig.txt /root/cow.txt` (移动并且重命名)
+	- `mv bbb/ /home/` (移动整个目录到`/home`下)
+
+**`cat` 指令**
+cat 指令用于查看文件内容
+- 基本语法：cat [选项] 要查看的文件
+- 常用选项：-n 显示行号
+- `cat` 只能浏览文件不能修改文件，为了浏览方便，一般会带上管道命令 `| more` (管道命令把前面的结果交给下一个指令)
+- `cat -n /etc/profile | more` ，回车下一行，空格翻页。
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221108102744.png)
+
+**`more` 指令**
+`more` 指令是一个基于 VI 编辑器的文本过滤器，它以全屏的方式按页显示文本文件的内容，`more` 指令内置了很多快捷键。
+- 基本语法： more 要查看的文件
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221108103310.png)
+
+**`less` 指令**
+`less` 指令用来分屏查看文件内容，它的功能与 `more` 指令相似，但是比`more`指令更加强大，支持各种显示终端。
+`less` 指令在显示文件内容时，并不是一次将整个文件加载之后才显示的，而是根据显示需要加载内容，对于显示大型文件具有较高的效率。
+- 基本语法：`less` 要查看的文件
+
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221108103832.png)
+
