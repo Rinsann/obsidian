@@ -152,3 +152,96 @@ cat 指令用于查看文件内容
 
 ![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221108103832.png)
 
+**`echo` 指令**
+`echo` 指令用于输入内容到控制台
+- 基本语法：echo [选项]  [输出内容]
+- 输出环境变量![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221108133457.png)
+
+**`head` 指令**
+`head` 指令用于显示文本的开头部分内容，默认情况下 `head` 显示文件的前十行内容
+- 基本语法：
+	- head 文件（查看文件头10行内容）
+	- head -n 5 文件名 （查看文件头5行内容，5可以是任意数字）
+
+**`tail` 指令**
+`tail` 用于输出文件中尾部的内容，默认情况下 `tail` 指令显示文件的最后10行内容。
+- 基本语法：
+	- tail 文件：用于查看文件尾部10行内容
+	- tail -n 5 文件：用于查看文件最后5行内容，5可以是任意数字
+	- tail -f  文件：实时追踪该文档的所有更新
+
+**`>` 指令和 `>>` 指令**
+`>` 输出重定向和 `>>` 追加
+- 基本语法：
+	- ls -l > 文件：列表的内容写入文件`a.txt`中（覆盖写）
+	- ls -al >> 文件：列表的内容追加到文件 `aa.txt` 的末尾，指定文件不存在则会创建
+	- cat 文件1 > 文件2：将文件1的内容覆盖到文件2
+	- echo "内容" >> 文件：将内容追加到该文件
+- ![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221108135306.png)
+**`ln` 指令**
+软链接也称为符号链接，类似于`windows`里的快捷方式，主要存放了链接其他文件的路径
+- 基本语法：
+	- `ln -s [原文件或目录] [软链接名]`：给原文件创建一个软链接
+	- ![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221108140223.png)
+	- `rm /home/myroot`：删除软链接，`myroot` 不要带斜杠，带上代表是目录
+- 细节：当我们使用 `pwd` 查看目录时，仍然看到的是软链接所在的目录
+
+**`history` 指令**
+查看已经执行过的历史命令，也可执行历史命令
+- 基本语法：
+	- history ：查看所有的已经执行过的历史命令
+	- history 10：查看最近十个执行过的命令
+	- !+编号：![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221108140825.png)
+
+### 时间日期类
+**date指令**
+- 显示当前日期基本语法
+	1. date：显示当前时间
+	2. date +%Y：显示当前年份
+	3. date +%m：显示当前
+	4. date +%d：显示当前是哪一天
+	5. date "+%Y-%m-%d %H:%M:%S"：显示年月日时分秒
+	6. ![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221108141504.png)
+- 设置日期
+	- date -s 字符串时间
+	- `date -s "2020-11-03 20:01:10"`
+	- 使用上面语法修改日期后可以通过 `hwclock -s`修改回来
+
+
+**`cal` 指令**
+查看日历指令 `cal`
+- 基本语法
+	- cal [选项]：不加选项，显示本月日历
+	- `cal 2022`：显示整年的日历
+- ![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221108142802.png)
+### 搜索查找类
+
+**find 指令**
+find 指令将从指定目录向下递归地遍历其各个子目录，将满足条件的文件或者目录显示在终端。
+- 基本语法
+	- `find [搜索范围] [选项]`
+	- 选项说明：
+		- `-name`<查询方式>：按照指定的文件名查找模式查找文件![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221108143956.png)
+		- `-user`<用户名>：查找属于指定用户名的所有文件![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221108144051.png)
+		- `-size`<文件大小>：按照指定的文件大小查找文件（+n 大于 -n小于 n等于，单位还有k,M,G）![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221108144309.png)![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221108144513.png) `ls -lh` 加个`h`会将单位以更容易理解的方式显示。
+
+**`locate` 指令**
+`locate` 指令可以快速定位文件路径。`locate`指令利用事先建立的系统中的所有文件名称及路径的`locate`数据库实现快速定位给定的文件。`locate`指令无需遍历整个文件系统，查询速度较快，为了保证查询结果的准确度管理员必须定期更新`locate`时刻。
+- 基本语法：
+	- `locate` ：搜索文件
+- 说明：由于`locate`指令基于数据库进行查询，所以第一次运行前，必须使用`updatedb`指令创建`locate`数据库
+- ![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221108145138.png)
+> `which` 指令，可以查看某个指令在那个目录下，比如ls在那个目录：`which ls`
+
+**`grep` 指令和管道符号 `|`**
+`grep` 过滤查找，管道符 `|`，表示将前一个命令的处理结果输出传递给后面的命令处理。
+- 基本语法：
+	- `grep` [选项] 查找内容 源文件
+	- `cat /home/hello.txt | grep "yes"`![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221108145837.png)
+	- `grep -n "yes" /home/hello.txt`
+- 常用选项
+	- `-n`：显示匹配行及行号
+	- `-i`：忽略字母大小写
+
+### 压缩和解压类
+**`gzip/gunzip`** 
