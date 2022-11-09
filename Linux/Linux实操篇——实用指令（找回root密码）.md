@@ -244,4 +244,39 @@ find 指令将从指定目录向下递归地遍历其各个子目录，将满足
 	- `-i`：忽略字母大小写
 
 ### 压缩和解压类
-**`gzip/gunzip`** 
+**`gzip/gunzip`** 指令
+`gzip` 用于压缩文件，`gunzip` 用于解压。
+- 基本语法：
+	- `gzip` 文件名：压缩文件，只能将文件压缩为 `*.gz` 文件
+	- `gunzip` 文件.gz：解压缩文件命令
+- ![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221108153835.png)
+**`zip/unzip` 指令**
+`zip` 用于压缩多个文件（`gzip`只能压缩单个），`unzip` 用于解压，这个在项目中打包发布很有用
+- 基本语法：
+	- zip [选项] xxx.zip 将要压缩的内容：压缩文件和目录的命令
+		- `zip -r myhome.zip /home/` 将`home`目录及其包含的子文件夹都进行压缩
+	- unzip [选项] xxx.zip：解压缩文件
+		- `mkdir /opt/tmp`
+		- `unzip -d /opt/tmp /home/myhome.zip`
+- zip 常用选项：
+	- `-r`：递归压缩，即压缩目录
+- unzip 常用选项：
+	- `-d <目录>`：指定解压后文件的存放目录
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221108154900.png)
+
+**`tar` 指令**
+`tar` 指令是打包指令，最后打包后的文件是 `.tar.gz` 的文件
+- 基本语法：
+	- `tar [选项] xxx.tar.gz 打包的内容`：打包目录，压缩后的文件格式`.tar.gz`
+	- 压缩多个文件：`tar -zcvf pc.tar.gz /home/pig.txt /home/cat.txt`
+	- 将文件夹成`.tar.gz`：`tar -zcvf myhome.tar.gz /home/`
+	- 将 `pc.tar.gz` 解压到当前目录：
+- 选项说明：
+	- `-c`：产生`.tar`打包文件
+	- `-v`：显示详细信息
+	- `-f`：指定压缩后的文件名
+	- `-z`：用 `gzip` 对文档进行压缩或解压，文件后缀`.gz`时压缩和解压都要加上![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221108160437.png)
+	- `-x`：解包`
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221108155901.png)
+创建 `tmp2` 文件夹，通过`-C`（解压到指定位置）指定解压到`tmp2`目录下
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221108160744.png)
