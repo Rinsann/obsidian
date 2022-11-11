@@ -123,6 +123,11 @@ chgrp -R shaolin /home/bbb/dd/test
 ![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221110125639.png)
 ![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221110125653.png)
 
+**关于目录的 `rwx` 细节**
+- `x`：表示可以进入到该目录，比如 `cd`
+- `r`：表示可以 `ls`，将目录中的内容显示
+- `w`：表示可以在该目录中进行删除或者创建文件
+
 ### 实践-警察和土匪
 police，bandit
 jack，jerry：警察
