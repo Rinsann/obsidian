@@ -99,9 +99,79 @@
 2. `chkconfig` 指令管理的服务在 `/etc/init.d` 查看
 
 **`chkconfig` 基本语法**
-- 查看服务：`chkconfig --list [| grep xxx]`
+- 查看服务：`chkconfig --list [| grep xxx]`![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221112135455.png)
 - `chkconfig 服务名 --list`
-- `chkconfig --level 5 服务名 on/off`
+- `chkconfig --level 5 服务名 on/off`![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221112135642.png)
 
 >使用 `chkconfig` 重新设置服务自启动/关闭，需要重启机器(`reboot`)才能生效
 
+### `systemctl` 管理指令
+1. 基本语法：
+	- `systemctl [start | stop | restart | status] 服务名`
+2. `systemctl` 指令管理的服务在 `/usr/lib/systemd/system` 查看
+
+**`systemctl` 设置服务的自启动状态**
+1. `systemctl list-unit-files [ | grep 服务名]`：查看服务开机启动状态，`grep` 可以进行过滤 ![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221112140515.png)
+2. `systemctl enable 服务名`：设置服务开机启动
+3. `systemctl disable 服务名`：关闭服务开机启动
+4. `systemctl is-enabled 服务名`：查询某个服务是否是自启动的
+
+**示例：**
+`systemctl status firewalld`：查询防火墙当前状态![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221112140823.png)`systemctl stop firewalld`：关闭防火墙
+
+
+**细节**
+1. 关闭或者启用防火墙后，立即生效。 `cmd` 测试 `telnet 测试 某个端口即可` ，要在`windows`中打开这个功能。
+2. 这种方式只是临时生效，当重启系统后，还是回归以前对服务的设置
+3. 如果设置某个服务器自启动或者关闭，希望它永久生效，要使用 `systemctl [enable|disable] 服务名`
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221112145913.png)
+
+**打开或者关闭指定端口**
+生产环境，往往需要将防火墙打开，但是问题来了，如果我们把防火墙打开，那么外部请求数据包就不能跟服务器监听端口通讯。
+这时就需要打开指定的端口，比如：80/22/8080等。
+
+**`firewall` 指令**
+- 打开端口：`firewall-cmd --permanent --add-port=端口号/协议`
+- 关闭端口：`firewall-cmd --permanent --remove-port=端口号/协议`
+- 重新载入，才能生效：`firewall-cmd --reload`
+- 查询端口是否开放：`firewall-cmd --query-port=端口/协议`
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221112142935.png)
+
+
+### 动态监控进程
+**介绍**
+`top` 和 `ps` 命令很相似，它们都是用来显示正在执行的进程。`top` 与 `ps` 最大的不同之处在于 `top` 在执行过程可以更新正在运行的进程
+**基本语法**
+`top [选项]`
+
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221112143220.png)
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221112143839.png)
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221112144359.png)
+
+**交互操作说明**
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221112144727.png)
+
+**示例**
+比如：监控特定用户 `jack`
+输入 top 按回车键查看执行的进程，然后输入 u 回车，在输入用户名即可。
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221112145023.png)
+
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221112144943.png)
+终止指定的进程，比如要结束 `jack` 的登录
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221112145315.png)
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221112145323.png)
+
+指定系统状态更新的时间（每10秒自动更新），默认3秒
+`top -d 10`![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221112145447.png)
+
+### 监控网络状态
+
+**查看系统网络情况 `netstat`**
+
+基本语法：`netstat [选项]`
+选项说明
+- `-an`：按一定顺序排列输出
+- `-p`：显示那个进程在调用
+
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221112150510.png)
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221112150614.png)
