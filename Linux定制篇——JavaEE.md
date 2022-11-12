@@ -23,3 +23,12 @@
 ![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221112164212.png)
 ![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221112164405.png)
 
+### 安装 idea 
+**步骤**
+1. 下载地址：`https://www.jetbrains.com/idea/download/#section=linux`
+2. 解压缩到 `/opt/idea`
+3. 启动 `idea`， `bin` 目录下运行 `./idea.sh`，配置 `jdk`
+4. 编写 Hello World 程序
+
+### mysql5.7 安装
+
