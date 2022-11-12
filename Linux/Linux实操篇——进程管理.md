@@ -59,7 +59,49 @@
 - `-9`：表示强迫进程立即停止
 
 **示例**
-- 踢出某个非法登录用户
-- 终止远程登录服务 `sshd`，在适当的时候再次重启 `sshd` 服务
-- 终止多个 `gedit`
-- 强制杀掉一个终端
+- 踢出某个非法登录用户 `kill 进程号`
+- 终止远程登录服务 `sshd`，在适当的时候再次重启 `sshd` 服务![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221112113928.png)重启 `sshd` 服务：`/bin/systemctl start sshd.service`![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221112114110.png)
+- 终止多个 `gedit` ，直接关闭打开的文本编辑器进程![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221112114254.png)
+- 强制杀掉一个终端，`kill -9 bash 进程号` ![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221112114602.png)
+### 查看进程树 `pstree`
+
+**基本语法**
+- `pstree [选项]` ：可以更加直观的以树状形式来查看进程信息
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221112114923.png)
+
+**常用选项**
+- `-p`：显示进程的 `PID`![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221112115009.png)
+
+- `-u`：显示进程的所属用户
+
+### 服务（`service`）管理
+**介绍**
+服务（`service`）本质就是进程，但是它是运行在后台的，通常都会监听某个端口，等待其它程序的请求。比如（`mysqld`、`sshd` 防火墙等），因此又称为守护进程，是 `Linux` 中非常重要的知识
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221112120002.png)
+
+**`service` 管理指令**
+1. `service` 服务名 `[start | stop | restart | reload | status]`
+2. 在 `CentOS7` 后 很多服务不再使用 `service`，而是 `systemctl` 
+3. 目前`service` 指令还管理的服务在 `/etc/init.d` 中查看![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221112120154.png)
+
+`service` 管理指令示例
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221112120524.png)
+
+**查看服务名**
+1. 使用 `setup` -> 系统服务 就能看到全部![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221112120649.png)
+2. `/etc/init.d` 看到 `service` 指令管理的服务![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221112120853.png)按 `tab` 键可以跳到最下面选择退出即可
+
+**开机的流程说明**
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221112121012.png)
+
+**`chkconfig` 指令**
+1. 通过 `chkconfig` 目录可以给服务的各个运行级别设置自启动/关闭
+2. `chkconfig` 指令管理的服务在 `/etc/init.d` 查看
+
+**`chkconfig` 基本语法**
+- 查看服务：`chkconfig --list [| grep xxx]`
+- `chkconfig 服务名 --list`
+- `chkconfig --level 5 服务名 on/off`
+
+>使用 `chkconfig` 重新设置服务自启动/关闭，需要重启机器(`reboot`)才能生效
+
