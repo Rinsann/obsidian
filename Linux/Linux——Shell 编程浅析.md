@@ -437,7 +437,7 @@ getSum $n1 $n2
 ```
 ![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221114120921.png)
 
-### `Shell` 编程综合案例
+### `Shell` 编程综合案例——备份数据库
 
 **需求分析**
 1. 每天凌晨 `2:30` 备份数据库 `rinsan` 到 `/data/backup/db`
@@ -445,3 +445,39 @@ getSum $n1 $n2
 3. 备份后的文件要求以备份时间为文件名，并打包成 `.tar.gz`，比如：`2027-03-13_023001.tar.gz`
 4. 在备份的同时，检查是否有10天前备份的数据库文件，如果有就将其删除。
 ![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221114122253.png)
+```bash
+#!/bin/bash
+echo "开始备份数据库 `date`"
+# 备份目录
+BACKUP=/data/backup/db
+# 当前时间
+DATETIME=$(date +%Y-%m-%d_%H%M%S)
+echo "$DATETIME"
+# 数据库的地址
+HOST=localhost
+# 数据库用户名
+DB_USER=root
+DB_PW=12345678
+# 备份的数据库
+DATABASE=rinsan
+
+# 创建备份目录 如果不存在就创建
+[ ! -d "${BACKUP}/${DATETIME}" ] && mkdir -p "${BACKUP}/${DATETIME}"
+
+# 备份数据库
+mysqldump -u${DB_USER} -p${DB_PW} --host=${HOST} -q -R --databases ${DATABASE} | gzip > ${BACKUP}/${DATETIME}/$DATETIME.sql.gz
+
+# 将文件处理成 tar.gz
+cd ${BACKUP}
+tar -zcvf $DATETIME.tar.gz ${DATETIME}
+# 删除对应的备份目录
+rm -rf ${BACKUP}/${DATETIME}
+
+# 删除十天前的备份文件
+find ${BACKUP} -atime +10 -name "*.tar.gz" -exec rm -rf {} \;
+echo "备份数据库---- ${DATABASE} ----成功"
+```
+
+> `-atime` 读取时间，`-mtime` 修改时间，`-ctime` 创建时间
+
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221114133445.png)
