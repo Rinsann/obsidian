@@ -126,3 +126,54 @@ echo "所有的参数=$*"
 echo "$@"
 echo "参数的个数=$#"
 ```
+
+### 预定义变量
+**基本介绍**
+- 就是 `shell` 设计者事先定义好的变量，可以直接在 `shell` 脚本中使用
+
+**基本语法**
+- `$$`：当前进程的进程号（`PID`）
+- `$!`：后台运行的最后一个进程的进程号（`PID`）
+- `$?`：最后一次执行的命令的返回状态，如果这个变量的值为0，证明上一个命令正常执行；如果这个变量的值为非 0（具体那个数，由命令自己来决定），则证明上一个命令执行不正确看。
+
+**示例**
+```bash
+#!/bin/bash
+echo "当前执行的进程id=$$"
+
+# 已后台的方式运行一个脚本，并获取它的进程号
+/root/shcode/myshell.sh &
+echo "最后一个后台运行的进程id=$!"
+echo "执行的结果是=$?"
+```
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221113180423.png)
+
+### 运算符
+**基本介绍**
+- 用于在 `Shell` 中进行各种运算操作
+
+**基本语法**
+1. `$((运算公式))` 或者 `$[运算公式]` 还有 `expr m + n`
+2. `expr m -n` ：m 和 n 之间需要有空格，(`expr` 是 `expression` 简写)
+3. 如果希望将 expr 的结果赋值给某个变量需要使用反引号  ``
+4. `expr \*,/,%`：乘、除、取余
+```bash
+#!/bin/bash
+# 计算 (2+3)*4的值
+
+RES1=$(((2+3)*4))
+echo "res1=$RES1"
+RES2=$[(2+3)*4]
+echo "res2=$RES2"
+TEMP=`expr 2 + 3`
+RES4=`expr $TEMP \* 4`
+echo "temp=$TEMP"
+echo "res4=$RES4"
+
+# 请输出命令行的两个参数[整数]的和 20 50
+SUM=$[$1+$2]
+echo "sum=$SUM"
+```
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221113181834.png)
+
+### 条件判断
