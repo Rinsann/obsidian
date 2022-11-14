@@ -177,3 +177,135 @@ echo "sum=$SUM"
 ![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221113181834.png)
 
 ### 条件判断
+**判断语句基本语法**
+- [ condition ] ：注意 `condition` 前后要有空格 即使里面什么都没有也需要空格，非空返回 true，可使用 `$?` 验证（0为 True，>1 为 False）
+
+**示例**
+- [ Rinsan ]         # 返回 true
+- [  ]                          # 返回 false
+- `[ condition] && echo OK || echo notok`               条件满足执行后面的语句
+
+**常用判断条件**
+1. `=` 字符串比较
+2. 两个整数的比较
+	-  `-lt` 小于
+	-  `-le` 小于等于
+	-  `-eq` 等于
+	-  `-gt` 大于
+	-  `-ge` 大于等于
+	-  `-ne` 不等于
+3. 按照文件权限进行判断
+	- `-r` 有读的权限
+	- `-w` 有写的权限
+	- `-x` 有执行的权限
+4. 按照文件类型进行判断
+	- `-f`  文件存在并且是一个常规的文件
+	- `-e`  文件存在
+	- `-d`  文件存在并且是一个目录
+
+**示例**
+
+```bash
+#!/bin/bash
+
+if [ "ok" = "ok" ]
+then
+    echo "equal"
+fi
+
+if [ 23 -ge 22 ]
+then
+    echo "大于"
+fi
+
+if [ -f /root/shcode/aaa.txt ]
+then
+    echo "文件存在"
+fi
+
+```
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221114103845.png)
+
+### 流程控制
+
+**`if` 判断基本语法**
+```bash
+if [ 条件判断表达式 ]
+then
+    代码
+fi
+# 或者
+if [ 条件判断表达式 ]
+then
+    代码
+elif  [ 条件判断表达式 ]
+then
+    代码
+fi
+```
+>[ 条件判断表达式 ] 中括号和条件判断表达式之间必须有空格
+
+**示例**
+```bash
+#!/bin/bash
+if [ $1 -ge 60 ]
+then
+	echo "及格了"
+elif [ $1 -lt 60 ]
+then
+	echo "不及格"
+fi
+```
+
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221114104107.png)
+
+**`case` 语句基本语法**
+```bahs
+case $变量名 in 
+"值1") # 如果变量的值等于值1，则执行程序1
+;;
+"值2") # 如果变量的值等于值2，则执行程序2
+;;
+...
+*) # 如果变量的值不是以上的值，则执行此程序
+;;
+esac
+```
+
+**示例**
+```bash
+#!/bin/bash
+case $1 in
+"1")
+echo "周一"
+;;
+"2")
+echo "周二"
+;;
+*)
+echo "other..."
+esac
+```
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221114104822.png)
+
+**`for` 循环基本语法**
+```bash
+# 语法1
+for 变量 in 值1 值2 值3 ...
+do
+程序
+done
+
+# 语法2
+for (( 初始值;循环控制条件;变量变化))
+do
+程序
+done
+```
+
+**示例**
+```bash
+#!/bin/bash
+# vim testFor1.sh
+
+```
