@@ -304,8 +304,144 @@ done
 ```
 
 **示例**
+`vim testFor1.sh`
 ```bash
 #!/bin/bash
-# vim testFor1.sh
+# "$*" 是把所有的参数当作一个整体，所以只会输出一句话
+for i in "$*"
+do
+        echo "num is $i"
+done
 
+# 使用 $@ 来获取输入的参数，注意 $@ 是分别对待，所以有几个参数就输出几句
+echo "================================================="
+for j in "$@"
+do
+	echo "num is $j"
+done
 ```
+
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221114112607.png)![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221114112836.png)
+`vim testFor2.sh`
+```bash
+#!/bin/bash
+# 从1加到100的值输出显示，将100 做成一个变量
+SUM=0
+for(( i=1; i<=$1; i++))
+do
+        SUM=$[$SUM+$i]
+done
+echo "总和SUM=$SUM"
+```
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221114113754.png)
+**`while` 循环基本语法**
+```bash
+while [条件判断表达式]
+do
+程序
+done
+```
+
+**示例**
+```bash
+#!/bin/bash
+# 从命令行输入一个数字 n，统计从1+—...+n的值是多少
+SUM=0
+i=0
+while [ $i -le $1 ]
+do
+        SUM=$[$SUM+$i]
+        # i 自增
+        i=$[$i+1]
+done
+echo "执行结果=$SUM"
+```
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221114114320.png)
+
+### `read` 读取控制台输入
+
+**基本语法**
+- `read [选项] [参数]`
+- 选项：
+	- `-p`：指定读取值时的提示符
+	- `-t`：指定读取值时等待的时间（秒），如果没有在指定的时间内输入，就不用等待了
+- 参数
+	- 变量：指定读取值的变量名
+
+**示例**
+```bash
+#!/bin/bash
+#!/bin/bash
+# 读取控制台输入一个 NUM1 的值
+read -p "请输入一个数字NUM1=" NUM1
+echo "输入的NUM1=$NUM1"
+
+# 读取控制台输入一个NUM2的值，在10秒之内
+read -t 10 -p "请输入一个数字NUM2=" NUM2
+echo "输入的NUM2=$NUM2"
+```
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221114115013.png)
+
+### 函数
+
+**函数介绍**
+- Shell 编程和其他编程语言语言，有系统函数，也可以自定义函数。
+
+#### 系统函数
+- `basename`基本语法：用于返回完整路径最后 `/` 的部分，常用于获取文件名
+	- `basename [pathname] [suffix]`
+	- `basename [string] [suffix]` : `basename` 命令会删掉所有的前缀包括最后一个 `/` 字符，然后将字符串显示出来
+	- 选项：
+	- `suffix` 为后缀，如果 `suffix` 被指定了，`basename` 会将 `pathname` 或 `string` 中的 `suffix` 去掉
+- `dirname` 基本语法：用于返回完整路径最后 `/` 的前面部分，常用于返回路径部分
+	- `dirname` 文件绝对路径：从给定的包含绝对路径的文件名中去除文件名（非目录的部分），然后返回剩下的路径（目录部分）
+
+**示例**
+```bash
+basename /home/apple.txt
+basename /home/apple.txt .txt
+
+dirname /home/bbb/hello.txt
+dirname /home/bbb/dd/hello.txt
+```
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221114115726.png)
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221114120204.png)
+
+#### 自定义函数
+
+**基本语法**
+```bash
+[ function ] funname[()]
+{
+	Action;
+	[return int;]
+}
+
+调用直接写函数名：funname [值]
+```
+
+**示例**
+计算输入的两个参数之和（动态获取），`getSum`
+```bash
+#!/bin/bash
+
+function getSum() {
+        SUM=$[$n1+$n2]
+        echo "和是=$SUM"
+}
+
+read -p "请输入n1=" n1
+read -p "请输入n2=" n2
+
+getSum $n1 $n2
+```
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221114120921.png)
+
+### `Shell` 编程综合案例
+
+**需求分析**
+1. 每天凌晨 `2:30` 备份数据库 `rinsan` 到 `/data/backup/db`
+2. 备份开始和备份结束能够给出相应的提示信息
+3. 备份后的文件要求以备份时间为文件名，并打包成 `.tar.gz`，比如：`2027-03-13_023001.tar.gz`
+4. 在备份的同时，检查是否有10天前备份的数据库文件，如果有就将其删除。
+![](https://markdown-ft.oss-cn-shenzhen.aliyuncs.com/image-for-typora/20221114122253.png)
